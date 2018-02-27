@@ -2,9 +2,10 @@ const path = require('path');
 const webpack = require('webpack');
 const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
+const HtmlWebpackPlugin = require('html-webpack-plugin');
 const extractSass = new ExtractTextPlugin({
-	filename: 'css/index.css',
-	disable: process.env.NODE_ENV === "development"
+	filename: 'index.css',
+	disable: process.env.NODE_ENV === 'development',
 });
 module.exports = {
 	entry: './src/js/app.js',
@@ -32,6 +33,9 @@ module.exports = {
 					use: [
 						{
 							loader: 'css-loader',
+							options: {
+								minimize: true
+							 }
 						},
 						{
 							loader: 'sass-loader',
@@ -49,6 +53,9 @@ module.exports = {
 				compress: true,
 				ie8: true,
 			},
+		}),
+		new HtmlWebpackPlugin({
+			template: 'index.html',
 		}),
 		extractSass,
 	],
