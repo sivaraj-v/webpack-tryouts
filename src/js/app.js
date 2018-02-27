@@ -3,6 +3,8 @@ import '../css/input-elements.css';
 import { secretButton, secretParagraph } from './dom-loader';
 var showSecret = false;
 
+[1, 2, 3].map(n => console.log(n ** 2));
+
 secretButton.addEventListener('click', toggleSecretState);
 updateSecretParagraph();
 
