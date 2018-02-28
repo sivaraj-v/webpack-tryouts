@@ -72,8 +72,7 @@ module.exports = {
 				use: {
 					loader: 'html-loader',
 					options: {
-						attrs: [':data-src'],
-						minimize: false,
+						minimize: true,
 					},
 				},
 			},
