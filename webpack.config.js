@@ -3,16 +3,18 @@ const webpack = require('webpack');
 const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
+const CleanWebpackPlugin = require('clean-webpack-plugin');
 const extractSass = new ExtractTextPlugin({
-	filename: 'index.css',
+	filename: 'index-[contenthash].css',
 	disable: process.env.NODE_ENV === 'development',
 });
+let pathsToClean = ['dist'];
 module.exports = {
 	entry: './src/js/app.js',
 	output: {
 		path: path.resolve(__dirname, 'dist'),
-		filename: 'bundle.js',
-		publicPath: 'dist', // you will get dist configuration virtually else you won't get err: GET http://localhost:8081/dist/bundle.js net::ERR_ABORTED
+		filename: 'bundle-[chunkhash].js',
+		publicPath: '', // you will get dist configuration virtually else you won't get err: GET http://localhost:8081/dist/bundle.js net::ERR_ABORTED
 	},
 	module: {
 		rules: [
@@ -58,5 +60,6 @@ module.exports = {
 			template: 'index.html',
 		}),
 		extractSass,
+		new CleanWebpackPlugin(pathsToClean),
 	],
 };
