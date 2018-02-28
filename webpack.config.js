@@ -8,6 +8,14 @@ const extractSass = new ExtractTextPlugin({
 	filename: 'index-[contenthash].css',
 	disable: process.env.NODE_ENV === 'development',
 });
+let cleanOptions = {
+	root: __dirname,
+	exclude: ['notRemove'], //ignore your folder on build
+	verbose: false,
+	dry: false,
+	beforeEmit: false,
+	allowExternal: false,
+};
 let pathsToClean = ['dist'];
 module.exports = {
 	entry: './src/js/app.js',
@@ -19,7 +27,7 @@ module.exports = {
 	module: {
 		rules: [
 			{
-				test: /\.js$/,
+				test: /\.(js|jsx)$/,
 				exclude: /(node_modules|bower_components)/,
 				use: {
 					loader: 'babel-loader',
@@ -30,7 +38,19 @@ module.exports = {
 				},
 			},
 			{
-				test: /\.scss$/,
+				test: /\.(png|jp(e*)g|svg)$/,
+				use: [
+					{
+						loader: 'file-loader',
+						options: {
+							name: '[name].[ext]?[hash]',
+							outputPath: 'img',
+						},
+					},
+				],
+			},
+			{
+				test: /\.(s*)css$/,
 				use: extractSass.extract({
 					use: [
 						{
@@ -47,6 +67,15 @@ module.exports = {
 					fallback: 'style-loader',
 				}),
 			},
+			{
+				test: /\.(html)$/,
+				use: {
+					loader: 'html-loader',
+					options: {
+						minimize: true,
+					},
+				},
+			},
 		],
 	},
 	plugins: [
@@ -56,10 +85,10 @@ module.exports = {
 				ie8: true,
 			},
 		}),
+		extractSass,
 		new HtmlWebpackPlugin({
 			template: 'index.html',
 		}),
-		extractSass,
-		new CleanWebpackPlugin(pathsToClean),
+		new CleanWebpackPlugin(pathsToClean, cleanOptions),
 	],
 };
