@@ -1,0 +1,30 @@
+<% htmlWebpackPlugin.options.meta = htmlWebpackPlugin.options.meta || [] %>
+    <!doctype html>
+    <html lang="en">
+
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+        <meta http-equiv="X-UA-Compatible" content="ie=edge">
+        <% if (Array.isArray(htmlWebpackPlugin.options.meta)) { %>
+            <% for (item of htmlWebpackPlugin.options.meta) { %>
+            <meta<% for (key in item) { %> <%= key %>="<%= item[key] %>"<% } %>>
+            <% } %>
+          <% } %>
+        <title><%= htmlWebpackPlugin.options.title %></title>
+         <% if (htmlWebpackPlugin.files.favicon) { %>
+            <link href="<%= htmlWebpackPlugin.files.favicon %>" rel="shortcut icon">
+         <% } %>
+         <% if (htmlWebpackPlugin.options.mobile) { %>
+            <meta content="width=device-width, initial-scale=1" name="viewport">
+         <% } %>
+    </head>
+
+    <body>
+        <h1>ADV</h1>
+        <button id="secret-button">Show the Secret</button>
+        <div id="secret-paragraph"><img id="home" />
+            <div class="imgUsingCss"></div>
+        </div>
+    </body>
+    </html>
