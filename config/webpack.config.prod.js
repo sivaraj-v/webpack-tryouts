@@ -123,3 +123,8 @@ module.exports = {
 
 // Readme:
 //  // https://github.com/jaketrent/html-webpack-template/blob/master/index.ejs
+//https://developers.google.com/web/progressive-web-apps/
+//https://github.com/goldhand/sw-precache-webpack-plugin
+//https://www.html5rocks.com/en/tutorials/workers/basics/#toc-gettingstarted
+//https: //github.com/GoogleChrome/workbox/issues/1367
+//https://github.com/GoogleChrome/workbox
