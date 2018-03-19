@@ -128,3 +128,4 @@ module.exports = {
 //https://www.html5rocks.com/en/tutorials/workers/basics/#toc-gettingstarted
 //https: //github.com/GoogleChrome/workbox/issues/1367
 //https://github.com/GoogleChrome/workbox
+//https://github.com/carloluis/webpack-optimization-splitchunks
