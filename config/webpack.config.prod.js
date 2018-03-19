@@ -39,6 +39,10 @@ module.exports = {
         filename: 'bundle-[chunkhash].js',
         publicPath: '', // you will get dist configuration virtually else you won't get err: GET http://localhost:8081/dist/bundle.js net::ERR_ABORTED
     },
+    resolve: {
+        modules: ["node_modules"],
+        extensions: [".js", ".json", ".scss"]
+    },
     optimization: {
         splitChunks: {
             cacheGroups: {
@@ -65,7 +69,7 @@ module.exports = {
                 },
             },
             {
-                test: /\.(png|jp(e*)g|svg)$/,
+                test: /\.(png|jpg|jpeg|gif|svg)$/,
                 use: [{
                     loader: 'file-loader',
                     options: {
@@ -73,6 +77,15 @@ module.exports = {
                         outputPath: 'img',
                     },
                 }, ],
+            },
+            {
+                test: /\.(woff|woff2|ttf|eot)(\?v=\d+\.\d+\.\d+)?$/,
+                loader: "file-loader",
+                options: {
+                    limit: 8192,
+                    name: "[name].[ext]?[hash]",
+                    emitFile: false
+                }
             },
             {
                 test: /\.(s*)css$/,
@@ -115,14 +128,19 @@ module.exports = {
         new WorkboxPlugin.GenerateSW({
             // these options encourage the ServiceWorkers to get in there fast
             // and not allow any straggling "old" SWs to hang around
+            globPatterns: ['dist/*.{js,png,html,css,svg,jpg,jpeg}'],
             swDest: 'sw.js',
             clientsClaim: true,
-            skipWaiting: true
+            skipWaiting: true,
+            globIgnores: [
+                "**/node_modules/**/*"
+            ]
         })
     ]
 };
 
 // Readme:
+//http://air.ghost.io/using-workbox-webpack-to-precache-with-service-worker/
 //  // https://github.com/jaketrent/html-webpack-template/blob/master/index.ejs
 //https://developers.google.com/web/progressive-web-apps/
 //https://github.com/goldhand/sw-precache-webpack-plugin
@@ -130,3 +148,6 @@ module.exports = {
 //https: //github.com/GoogleChrome/workbox/issues/1367
 //https://github.com/GoogleChrome/workbox
 //https://github.com/carloluis/webpack-optimization-splitchunks
+//https://github.com/GoogleChrome/workbox/issues/1176,
+//https://developers.google.com/web/tools/workbox/modules/workbox-webpack-plugin
+//https://developers.google.com/web/tools/workbox/modules/workbox-strategies
