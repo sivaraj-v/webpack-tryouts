@@ -53,17 +53,16 @@ let WebpackPwaManifestOptions = {
             size: '1024x1024', // you can also use the specifications pattern
             destination: path.join('img/icons')
         }
-    ]
+    ],
+    gcm_sender_id: "103953800507",
 }
 let workboxOptions = {
     globPatterns: [' "**/*.{html,md,css,txt,less,scss,otf,eot,svg,ttf,woff,woff2,jpg,png,gif,yml,js,ico,sh,xml,map}"'],
     swDest: 'sw.js',
-    clientsClaim: true,
-    skipWaiting: true,
+    swSrc: './src/sw.js',
     globIgnores: [
         "**/node_modules/**/*"
-    ],
-    navigateFallback: '/offline.html',
+    ]
 }
 let pathsToClean = [path.resolve(__dirname, 'dist')];
 const swSrc = 'src/sw.js';
@@ -157,7 +156,7 @@ module.exports = {
         new HtmlWebpackPlugin(htmlWebpackOptions),
         new CleanWebpackPlugin(pathsToClean, cleanOptions),
         new WebpackPwaManifest(WebpackPwaManifestOptions),
-        new WorkboxPlugin.GenerateSW(workboxOptions),
+        new WorkboxPlugin.InjectManifest(workboxOptions),
 
 
     ]
@@ -178,3 +177,8 @@ module.exports = {
 
 // Configuration Ideas:
 // https://github.com/HighSkySky/react-read/blob/250e8771b1e672d6dbe5bb3f13bbce91a0222021/view/config/webpack.config.prod.js
+//https://developers.google.com/web/tools/workbox/guides/codelabs/webpack // inject
+
+// ServiceWorker
+//https://developers.google.com/web/fundamentals/primers/service-workers/lifecycle
+//https://jakearchibald.com/2014/offline-cookbook/
