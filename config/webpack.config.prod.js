@@ -5,11 +5,18 @@ const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const CleanWebpackPlugin = require('clean-webpack-plugin');
+const WebpackPwaManifest = require('webpack-pwa-manifest');
 const WorkboxPlugin = require('workbox-webpack-plugin');
 const extractSass = new ExtractTextPlugin({
     filename: 'index-[contenthash].css',
     disable: process.env.NODE_ENV === 'development',
 });
+let UglifyJsPluginOptions = {
+    uglifyOptions: {
+        compress: true,
+        ie8: true,
+    },
+}
 let cleanOptions = {
     root: __dirname,
     exclude: ['notRemove'], //ignore your folder on build
@@ -31,7 +38,35 @@ let htmlWebpackOptions = {
         html5: true
     }
 }
+let WebpackPwaManifestOptions = {
+    name: 'My Progressive Web App',
+    short_name: 'MyPWA',
+    description: 'My awesome Progressive Web App!',
+    background_color: '#e60a0a',
+    icons: [{
+            src: path.resolve('src/img/icon.png'),
+            sizes: [96, 128, 192, 256, 384, 512], // multiple sizes
+            destination: path.join('img/icons')
+        },
+        {
+            src: path.resolve('src/img/icon.png'),
+            size: '1024x1024', // you can also use the specifications pattern
+            destination: path.join('img/icons')
+        }
+    ],
+    gcm_sender_id: "103953800507",
+}
+let workboxOptions = {
+    globPatterns: [' "**/*.{html,md,css,txt,less,scss,otf,eot,svg,ttf,woff,woff2,jpg,png,gif,yml,js,ico,sh,xml,map}"'],
+    swDest: 'sw.js',
+    swSrc: './src/sw.js',
+    globIgnores: [
+        "**/node_modules/**/*"
+    ]
+}
 let pathsToClean = [path.resolve(__dirname, 'dist')];
+const swSrc = 'src/sw.js';
+const swDest = 'dist/sw.js';
 module.exports = {
     entry: './src/js/app.js',
     output: {
@@ -116,26 +151,14 @@ module.exports = {
         ],
     },
     plugins: [
-        new UglifyJsPlugin({
-            uglifyOptions: {
-                compress: true,
-                ie8: true,
-            },
-        }),
+        new UglifyJsPlugin(UglifyJsPluginOptions),
         extractSass,
         new HtmlWebpackPlugin(htmlWebpackOptions),
         new CleanWebpackPlugin(pathsToClean, cleanOptions),
-        new WorkboxPlugin.GenerateSW({
-            // these options encourage the ServiceWorkers to get in there fast
-            // and not allow any straggling "old" SWs to hang around
-            globPatterns: [' "**/*.{html,md,css,txt,less,scss,otf,eot,svg,ttf,woff,woff2,jpg,png,gif,yml,js,ico,sh,xml,map}"'],
-            swDest: 'sw.js',
-            clientsClaim: true,
-            skipWaiting: true,
-            globIgnores: [
-                "**/node_modules/**/*"
-            ]
-        })
+        new WebpackPwaManifest(WebpackPwaManifestOptions),
+        new WorkboxPlugin.InjectManifest(workboxOptions),
+
+
     ]
 };
 
@@ -154,3 +177,9 @@ module.exports = {
 
 // Configuration Ideas:
 // https://github.com/HighSkySky/react-read/blob/250e8771b1e672d6dbe5bb3f13bbce91a0222021/view/config/webpack.config.prod.js
+//https://developers.google.com/web/tools/workbox/guides/codelabs/webpack // inject
+
+// ServiceWorker
+//https://developers.google.com/web/fundamentals/primers/service-workers/lifecycle
+//https://jakearchibald.com/2014/offline-cookbook/
+//https://developers.google.com/web/updates/2015/03/push-notifications-on-the-open-web
