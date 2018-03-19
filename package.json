@@ -1,42 +1,42 @@
 {
-	"name": "shiva-webpack",
-	"version": "1.0.0",
-	"description": "> Webpack 4 tutorial: All You Need to Know, from 0 Conf to Production Mode",
-	"main": "index.js",
-	"scripts": {
-		"test": "echo \"Error: no test specified\" && exit 1",
-		"dev": "webpack-dev-server --mode development",
-		"prod": "webpack --mode production"
-	},
-	"keywords": [],
-	"author": "",
-	"license": "ISC",
-	"devDependencies": {
-		"@babel/core": "^7.0.0-beta.40",
-		"@babel/plugin-proposal-object-rest-spread": "^7.0.0-beta.40",
-		"@babel/preset-env": "^7.0.0-beta.40",
-		"babel-cli": "^6.26.0",
-		"babel-loader": "^8.0.0-beta.0",
-		"clean-webpack-plugin": "^0.1.18",
-		"css-loader": "^0.28.10",
-		"extract-text-webpack-plugin": "^4.0.0-beta.0",
-		"file-loader": "^1.1.10",
-		"html-loader": "^0.5.5",
-		"html-webpack-plugin": "webpack-contrib/html-webpack-plugin",
-		"node-sass": "^4.7.2",
-		"sass-loader": "^6.0.6",
-		"style-loader": "^0.20.2",
-		"webpack": "^4.0.1",
-		"webpack-cli": "^2.0.8",
-		"webpack-dev-server": "^3.0.0"
-	},
-	"dependencies": {},
-	"repository": {
-		"type": "git",
-		"url": "git+https://github.com/zural/webpack-4.0.0.git"
-	},
-	"bugs": {
-		"url": "https://github.com/zural/webpack-4.0.0/issues"
-	},
-	"homepage": "https://github.com/zural/webpack-4.0.0#readme"
+    "name": "shiva-webpack",
+    "version": "1.0.0",
+    "description": "> Webpack 4 tutorial: All You Need to Know, from 0 Conf to Production Mode",
+    "main": "index.js",
+    "scripts": {
+        "test": "echo \"Error: no test specified\" && exit 1",
+        "dev": "webpack-dev-server --mode development --open",
+        "prod": "webpack --mode production"
+    },
+    "keywords": [],
+    "author": "",
+    "license": "ISC",
+    "devDependencies": {
+        "@babel/core": "^7.0.0-beta.42",
+        "@babel/plugin-proposal-object-rest-spread": "^7.0.0-beta.42",
+        "@babel/preset-env": "^7.0.0-beta.42",
+        "babel-cli": "^6.26.0",
+        "babel-loader": "^8.0.0-beta.2",
+        "clean-webpack-plugin": "^0.1.19",
+        "css-loader": "^0.28.11",
+        "extract-text-webpack-plugin": "^4.0.0-beta.0",
+        "file-loader": "^1.1.11",
+        "html-loader": "^0.5.5",
+        "html-webpack-plugin": "github:webpack-contrib/html-webpack-plugin",
+        "node-sass": "^4.8.2",
+        "sass-loader": "^6.0.7",
+        "style-loader": "^0.20.3",
+        "webpack": "^4.1.1",
+        "webpack-cli": "^2.0.12",
+        "webpack-dev-server": "^3.1.1"
+    },
+    "dependencies": {},
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/zural/webpack-4.0.0.git"
+    },
+    "bugs": {
+        "url": "https://github.com/zural/webpack-4.0.0/issues"
+    },
+    "homepage": "https://github.com/zural/webpack-4.0.0#readme"
 }
