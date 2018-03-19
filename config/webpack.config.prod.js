@@ -128,7 +128,7 @@ module.exports = {
         new WorkboxPlugin.GenerateSW({
             // these options encourage the ServiceWorkers to get in there fast
             // and not allow any straggling "old" SWs to hang around
-            globPatterns: ['dist/*.{js,png,html,css,svg,jpg,jpeg}'],
+            globPatterns: [' "**/*.{html,md,css,txt,less,scss,otf,eot,svg,ttf,woff,woff2,jpg,png,gif,yml,js,ico,sh,xml,map}"'],
             swDest: 'sw.js',
             clientsClaim: true,
             skipWaiting: true,
@@ -151,3 +151,6 @@ module.exports = {
 //https://github.com/GoogleChrome/workbox/issues/1176,
 //https://developers.google.com/web/tools/workbox/modules/workbox-webpack-plugin
 //https://developers.google.com/web/tools/workbox/modules/workbox-strategies
+
+// Configuration Ideas:
+// https://github.com/HighSkySky/react-read/blob/250e8771b1e672d6dbe5bb3f13bbce91a0222021/view/config/webpack.config.prod.js
