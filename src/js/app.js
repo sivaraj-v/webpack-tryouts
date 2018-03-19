@@ -33,9 +33,10 @@ function updateSecretParagraph() {
     }
 }
 
+
 if ('serviceWorker' in navigator) {
     window.addEventListener('load', () => {
-        navigator.serviceWorker.register('http://localhost:8081/webpack-4.0.0/dist//service-worker.js').then(registration => {
+        navigator.serviceWorker.register('http://localhost:8081/webpack-4.0.0/dist/sw.js').then(registration => {
             console.log('SW registered: ', registration);
         }).catch(registrationError => {
             console.log('SW registration failed: ', registrationError);
