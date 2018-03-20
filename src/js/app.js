@@ -36,11 +36,42 @@ function updateSecretParagraph() {
 
 if ('serviceWorker' in navigator) {
     window.addEventListener('load', () => {
-        navigator.serviceWorker.register('http://localhost:8081/webpack-4.0.0/dist/sw.js').then(registration => {
-            console.log('SW registered: ', registration);
-            registration.pushManager.subscribe({ userVisibleOnly: true });
-        }).catch(registrationError => {
-            console.log('SW registration failed: ', registrationError);
+        // navigator.serviceWorker.register('').then(registration => {
+        //     console.log('SW registered: ', registration);
+        //     registration.pushManager.subscribe({ userVisibleOnly: true });
+        // }).catch(registrationError => {
+        //     console.log('SW registration failed: ', registrationError);
+        // });
+
+        navigator.serviceWorker.register('http://localhost:8081/webpack-4.0.0/dist/sw.js', { scope: '/webpack-4.0.0/dist/' }).then(function(serviceReg) {
+            debugger
+            if ('pushManager' in serviceReg) {
+                console.log(1);
+            } else {
+                console.log(0);
+            }
+
+            if (serviceReg.installing) {
+                console.log('Service worker installing');
+            } else if (serviceReg.waiting) {
+                console.log('Service worker installed');
+            } else if (serviceReg.active) {
+                console.log('Service worker active');
+            }
+
+            // Check for showNotification support.
+            if (!(serviceReg.showNotification)) {
+                console.log('Notifications aren\'t supported on service workers.');
+            } else {
+                console.log('Notifications are supported on service workers.');
+                serviceReg.pushManager.subscribe({ userVisibleOnly: true });
+            }
+
+        }).catch(function(error) {
+            // registration failed
+            console.log('Registration failed with ' + error);
         });
+
+
     });
 }
