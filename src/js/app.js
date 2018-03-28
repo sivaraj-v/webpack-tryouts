@@ -43,7 +43,7 @@ if ('serviceWorker' in navigator) {
         //     console.log('SW registration failed: ', registrationError);
         // });
 
-        navigator.serviceWorker.register('http://localhost:8081/webpack-4.0.0/dist/sw.js', { scope: '/webpack-4.0.0/dist/' }).then(function(serviceReg) {
+        navigator.serviceWorker.register('http://localhost:8081/svs-printers-and-bags/dist/sw.js', { scope: 'svs-printers-and-bags/dist/' }).then(function(serviceReg) {
             debugger
             if ('pushManager' in serviceReg) {
                 console.log(1);
@@ -64,7 +64,15 @@ if ('serviceWorker' in navigator) {
                 console.log('Notifications aren\'t supported on service workers.');
             } else {
                 console.log('Notifications are supported on service workers.');
-                serviceReg.pushManager.subscribe({ userVisibleOnly: true });
+
+                serviceWorker.addEventListener("statechange", function(e) {
+                    console.log("sw statechange : ", e.target.state);
+                    if (e.target.state == "activated") {
+                        // use pushManger for subscribing here.
+                        console.log("Just now activated. now we can subscribe for push notification")
+                        serviceReg.pushManager.subscribe({ userVisibleOnly: true });
+                    }
+                });
             }
 
         }).catch(function(error) {
