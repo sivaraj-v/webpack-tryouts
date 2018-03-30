@@ -8,7 +8,7 @@ const CleanWebpackPlugin = require('clean-webpack-plugin');
 const WebpackPwaManifest = require('webpack-pwa-manifest');
 const WorkboxPlugin = require('workbox-webpack-plugin');
 const extractSass = new ExtractTextPlugin({
-    filename: 'index-[contenthash].css',
+    filename: 'css/index-[contenthash].css',
     disable: process.env.NODE_ENV === 'development',
 });
 let UglifyJsPluginOptions = {
@@ -29,7 +29,10 @@ let htmlWebpackOptions = {
     template: 'index.ejs',
     title: 'Progressive Web Application',
     favicon: 'favicon.ico',
-    meta: [{ name: 'robots', content: 'noindex,nofollow' }],
+    meta: [{
+        name: 'robots',
+        content: 'noindex,nofollow'
+    }],
     minify: {
         collapseWhitespace: true,
         conservativeCollapse: true,
@@ -42,10 +45,12 @@ let WebpackPwaManifestOptions = {
     name: 'My Progressive Web App',
     short_name: 'MyPWA',
     description: 'My awesome Progressive Web App!',
+    display: "standalone",
+    start_url: "/",
     background_color: '#e60a0a',
     icons: [{
             src: path.resolve('src/img/icon.png'),
-            sizes: [96, 128, 192, 256, 384, 512], // multiple sizes
+            sizes: [16, 32, 57, 60, 72, 76, 96, 114, 120, 128, 144, 152, 180, 192, 256, 384, 512], // multiple sizes
             destination: path.join('img/icons')
         },
         {
@@ -71,7 +76,7 @@ module.exports = {
     entry: './src/js/app.js',
     output: {
         path: path.resolve(__dirname, 'dist'),
-        filename: 'bundle-[chunkhash].js',
+        filename: 'js/bundle-[chunkhash].js',
         publicPath: '', // you will get dist configuration virtually else you won't get err: GET http://localhost:8081/dist/bundle.js net::ERR_ABORTED
     },
     resolve: {
@@ -183,3 +188,6 @@ module.exports = {
 //https://developers.google.com/web/fundamentals/primers/service-workers/lifecycle
 //https://jakearchibald.com/2014/offline-cookbook/
 //https://developers.google.com/web/updates/2015/03/push-notifications-on-the-open-web
+
+//Configuration Refer
+//https://github.com/GoogleChrome/workbox/issues/1176
