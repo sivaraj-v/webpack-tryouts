@@ -28,7 +28,7 @@ let cleanOptions = {
 let htmlWebpackOptions = {
   template: 'index.ejs',
   title: 'Progressive Web Application',
-  favicon: 'favicon.ico',
+  favicon: './src/img/favicon.ico',
   meta: [{
     name: 'robots',
     content: 'noindex,nofollow'
