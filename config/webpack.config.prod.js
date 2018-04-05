@@ -8,7 +8,7 @@ const CleanWebpackPlugin = require('clean-webpack-plugin');
 const WebpackPwaManifest = require('webpack-pwa-manifest');
 const WorkboxPlugin = require('workbox-webpack-plugin');
 const extractSass = new ExtractTextPlugin({
-  filename: 'css/index-[contenthash].css',
+  filename: 'index-[hash].css',
   disable: process.env.NODE_ENV === 'development',
 });
 let UglifyJsPluginOptions = {
@@ -67,7 +67,8 @@ let workboxOptions = {
   swSrc: './src/sw.js',
   globIgnores: [
     "**/node_modules/**/*"
-  ]
+  ],
+  maximumFileSizeToCacheInBytes: 4 * 1024 * 1024,
 }
 let pathsToClean = [path.resolve(__dirname, 'dist')];
 const swSrc = 'src/sw.js';

@@ -43,8 +43,8 @@ if ('serviceWorker' in navigator) {
     //     console.log('SW registration failed: ', registrationError);
     // });
 
-    navigator.serviceWorker.register('http://localhost:8081/svs-printers-and-bags/dist/sw.js', {
-      scope: 'svs-printers-and-bags/dist/'
+    navigator.serviceWorker.register('http://localhost:8081/webpack-4.0.0/dist/sw.js', {
+      scope: 'webpack-4.0.0/dist/'
     }).then(function(serviceReg) {
       if ('pushManager' in serviceReg) {
         console.log(1);
@@ -76,7 +76,6 @@ if ('serviceWorker' in navigator) {
           userVisibleOnly: true
         });
       }
-
     }).catch(function(error) {
       // registration failed
       if (!SW_Enabled) {
@@ -84,7 +83,6 @@ if ('serviceWorker' in navigator) {
       }
 
     });
-
     Notification.requestPermission(function(result) {
       if (result === 'granted') {
         navigator.serviceWorker.ready.then(function(registration) {
@@ -92,7 +90,5 @@ if ('serviceWorker' in navigator) {
         });
       }
     });
-
-
   });
 }

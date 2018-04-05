@@ -15,7 +15,8 @@ p {
     width: 50%;
     font-size: 18px;
 }
-.imgUsingCss{
+
+.imgUsingCss {
     background: url('../img/JPG-logo-highres.jpg');
     height: 50px;
     background-size: contain;
